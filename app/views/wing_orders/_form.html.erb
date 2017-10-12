@@ -1,0 +1,49 @@
+<%= form_for @wing_order, html: {class: "new_wing_order", id: "new_wing_order"} do |f| %>
+  <% if @wing_order.errors.any? %>
+	  <div id="error_explanation">
+	    <h2><%= pluralize(@wing_order.errors.count, "error") %> prohibited this order from being saved:</h2>
+
+	    <ul>
+	      <% @wing_order.errors.full_messages.each do |message| %>
+	        <li><%= message %></li>
+	      <% end %>
+	    </ul>
+	  </div>
+	<% end %>
+
+  <div class='row'>
+    <%= f.label :customer_name, 'Full Name' %>
+    <%= f.text_field :customer_name %>
+  </div>
+
+  <div class='row'>
+    <%= f.label :city %>
+    <%= f.text_field :city %>
+  </div>
+
+  <div class='row'>
+    <%= f.label :state %>
+    <%= f.collection_select(:state, @state_collection, :last, :first) %>
+  </div>
+
+  <div class="row">
+      <%= f.label :quantity %>
+      <%= f.collection_radio_buttons(:quantity, @quantity_collection, :first, :last) %>
+  </div>
+
+  <div class="row">
+      <%= f.label :ranch_dressing, "Add Ranch Dressing" %>
+      <%= f.check_box(:ranch_dressing) %>
+  </div>
+
+  <div class='row'>
+    <%= f.label :flavor %>
+    <%= f.collection_check_boxes(:flavor_ids, @flavor_collection, :id, :name) %>
+  </div>
+
+  <div class="row">
+    <%= f.label :submit %>
+    <%= f.submit 'Submit' %>
+  </div>
+
+<% end %>
